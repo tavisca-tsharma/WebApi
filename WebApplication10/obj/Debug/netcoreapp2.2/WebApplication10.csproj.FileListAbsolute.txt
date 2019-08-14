@@ -1,0 +1,14 @@
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\bin\Debug\netcoreapp2.2\WebApplication10.deps.json
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\bin\Debug\netcoreapp2.2\WebApplication10.runtimeconfig.json
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\bin\Debug\netcoreapp2.2\WebApplication10.runtimeconfig.dev.json
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\bin\Debug\netcoreapp2.2\WebApplication10.dll
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\bin\Debug\netcoreapp2.2\WebApplication10.pdb
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\obj\Debug\netcoreapp2.2\WebApplication10.csprojResolveAssemblyReference.cache
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\obj\Debug\netcoreapp2.2\WebApplication10.csproj.CoreCompileInputs.cache
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\obj\Debug\netcoreapp2.2\WebApplication10.RazorAssemblyInfo.cache
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\obj\Debug\netcoreapp2.2\WebApplication10.RazorAssemblyInfo.cs
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\obj\Debug\netcoreapp2.2\WebApplication10.AssemblyInfoInputs.cache
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\obj\Debug\netcoreapp2.2\WebApplication10.AssemblyInfo.cs
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\obj\Debug\netcoreapp2.2\WebApplication10.RazorTargetAssemblyInfo.cache
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\obj\Debug\netcoreapp2.2\WebApplication10.dll
+C:\Users\tsharma\source\repos\WebApplication10\WebApplication10\obj\Debug\netcoreapp2.2\WebApplication10.pdb
