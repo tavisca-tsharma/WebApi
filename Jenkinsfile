@@ -5,35 +5,35 @@ pipeline {
         	
         	steps{
         		echo 'Restoring packages'
-        		sh 'dotnet restore'
+        		bat 'dotnet restore'
         	}
         }
         stage('Build') {
         	
         	steps{
         		echo 'Building project'
-        		sh 'dotnet build WebApplication10.sln -p:Configuration=release -v:n'
+        		bat 'dotnet build WebApplication10.sln -p:Configuration=release -v:n'
         	}
         }
         stage('Test') {
         	
         	steps{
         		echo 'Testing project'
-        		sh 'dotnet test WebApplication10.sln '
+        		bat 'dotnet test WebApplication10.sln '
         	}
         }
         stage('Publish') {
         	
         	steps{
         		echo 'Publishing project'
-        		sh 'dotnet publish'
+        		bat 'dotnet publish'
         	}
         }
         stage('Deploy') {
         	
         	steps{
         		echo 'Deploy project'
-        		sh 'dotnet WebApplication10/bin/Release/netcoreapp2.2/WebApplication10.dll'
+        		bat 'dotnet WebApplication10/bin/Release/netcoreapp2.2/WebApplication10.dll'
         	}
         }
         
@@ -42,7 +42,7 @@ pipeline {
     post{
              success{
                  archiveArtifacts artifacts: '**', fingerprint:true
-                 sh 'dotnet WebApplication10/bin/Release/netcoreapp2.2/WebApplication10.dll'
+                 bat 'dotnet WebApplication10/bin/Release/netcoreapp2.2/WebApplication10.dll'
              }
         }
 }
