@@ -42,7 +42,7 @@ pipeline {
     post{
              success{
                  archiveArtifacts artifacts: '**', fingerprint:true
-                 sh 'dotnet WebApplication10/bin/Release/netcoreapp2.2/WebApplication10.dl'
+                 sh 'dotnet WebApplication10/bin/Release/netcoreapp2.2/WebApplication10.dll'
              }
         }
 }
