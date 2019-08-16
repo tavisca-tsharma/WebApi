@@ -32,7 +32,7 @@ pipeline {
         stage('Deploy'){
 		     steps{
 			    bat 'docker build -t demoapi -f Dockerfile .'
-				bat 'docker run --rm -p 65208:65208/tcp demoapi:latest'
+				bat 'docker run --rm -p 6789:6789/tcp demoapi:latest'
 			 }
 		}
         
