@@ -1,41 +1,55 @@
 pipeline {
     agent any
-    stages { 
-        stage('Restore') {
-        	
-        	steps{
-        		echo 'Restoring packages'
-        		bat 'dotnet restore'
-        	}
-        }
+	parameters {		
+			string(	name: 'GIT_SSH_PATH',
+					defaultValue: "https://github.com/tavisca-ysant/DemoApi.git",
+					description: '')
+
+			string(name: 'DOCKER_FILE',
+			       defaultValue: 'demoapi')
+		    string(name: 'DOCKER_CONTAINER_NAME',
+			       defaultValue: 'demoapi-container')
+		    
+    }
+	
+    stages {
         stage('Build') {
-        	
-        	steps{
-        		echo 'Building project'
-        		bat 'dotnet build WebApplication10.sln -p:Configuration=release -v:n'
-        	}
+            steps {
+				bat 'dotnet restore'
+                bat 'dotnet build -p:Configuration=release -v:n'
+				
+            }
         }
+		
         stage('Test') {
-        	
-        	steps{
-        		echo 'Testing project'
-        		bat 'dotnet test WebApplication10.sln '
-        	}
+            steps {
+                bat 'dotnet test' 
+            }
         }
-        stage('Publish') {
-        	
-        	steps{
-        		echo 'Publishing project'
-        		bat 'dotnet publish -c Release -o publish'
-        	}
+		stage('Publish') {
+            steps {
+                bat 'dotnet publish -c Release -o publish' 
+            }
         }
-        stage('Deploy'){
+		stage('Deploy'){
+			
 		     steps{
-			    bat 'docker build -t demoapi -f Dockerfile .'
-				bat 'docker run --rm -p 6789:6789/tcp demoapi:latest'
+			    bat '''
+				if(docker inspect -f {{.State.Running}} ${DOCKER_CONTAINER_NAME})
+				then
+					docker container rm -f ${DOCKER_CONTAINER_NAME}
+				fi
+			    '''
+			    bat 'docker build -t ${DOCKER_FILE} -f Dockerfile .'
+				bat 'docker run --name ${DOCKER_CONTAINER_NAME} -d -p 65208:65208/tcp ${DOCKER_FILE}:latest'
+				bat 'docker image rm -f ${DOCKER_FILE}:latest'
 			 }
 		}
-        
-
+		
     }
+	post{
+	  always{
+	      deleteDir()
+	  }
+	}
 }
