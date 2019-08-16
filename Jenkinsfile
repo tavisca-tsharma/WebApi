@@ -2,13 +2,13 @@ pipeline {
     agent any
 	parameters {		
 			string(	name: 'GIT_SSH_PATH',
-					defaultValue: "https://github.com/tavisca-ysant/DemoApi.git",
+					defaultValue: "https://github.com/tavisca-tsharma/WebApi.git",
 					description: '')
 
 			string(name: 'DOCKER_FILE',
-			       defaultValue: 'demoapi')
+			       defaultValue: 'WebApplication10')
 		    string(name: 'DOCKER_CONTAINER_NAME',
-			       defaultValue: 'demoapi-container')
+			       defaultValue: 'WebApplication10-container')
 		    
     }
 	
