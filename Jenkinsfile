@@ -29,20 +29,8 @@ pipeline {
         		bat 'dotnet publish'
         	}
         }
-        stage('Deploy') {
-        	
-        	steps{
-        		echo 'Deploy project'
-        		bat 'dotnet WebApplication10/bin/Release/netcoreapp2.2/WebApplication10.dll'
-        	}
-        }
+        
         
 
     }
-    post{
-             success{
-                 archiveArtifacts artifacts: '**', fingerprint:true
-                 bat 'dotnet WebApplication10/bin/Release/netcoreapp2.2/WebApplication10.dll'
-             }
-        }
 }
