@@ -41,7 +41,7 @@ pipeline {
 				fi
 			    '''
 			    bat 'docker build -t ${DOCKER_FILE} -f Dockerfile .'
-				bat 'docker run --name ${DOCKER_CONTAINER_NAME} -d -p 65208:65208/tcp ${DOCKER_FILE}:latest'
+				bat 'docker run --name ${DOCKER_CONTAINER_NAME} -d -p 6789:6789/tcp ${DOCKER_FILE}:latest'
 				bat 'docker image rm -f ${DOCKER_FILE}:latest'
 			 }
 		}
