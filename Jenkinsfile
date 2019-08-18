@@ -2,12 +2,12 @@ pipeline {
     agent any
 	
 	parameters {
-        string(defaultValue: "TestAPI2.sln", description: 'name of solution file', name: 'solutionName')
-		string(defaultValue: "APITests/APITests.csproj", description: 'name of test file', name: 'testName')
+        string(defaultValue: "WebApplication10.sln", description: 'name of solution file', name: 'solutionName')
+		string(defaultValue: "XUnitTestProject1/XUnitTestProject1.csproj", description: 'name of test file', name: 'testName')
 		string(defaultValue: "api_image", description: 'name of docker image', name: 'docker_image_name')
-		string(defaultValue: "tanmaysharma/tanmay_repo", description: 'repository_name', name: 'repository_name')
-		string(defaultValue: "pchinu1234", description: 'docker hub password', name: 'pass_word')
-		string(defaultValue: "tanmaysharma", description: 'docker hub username', name: 'user_name')
+		string(defaultValue: "tanmaysharma97/tanmay97", description: 'repository_name', name: 'repository_name')
+		string(defaultValue: "01894222668", description: 'docker hub password', name: 'pass_word')
+		string(defaultValue: "tanmaysharma97", description: 'docker hub username', name: 'user_name')
 		string(defaultValue: "api_tag", description: 'tag name', name: 'tag_name')
     }
 	
@@ -47,7 +47,7 @@ pipeline {
         	
         	steps{
         		echo 'Docker login to dockerhub'
-				bat 'docker login -p %pass_word% -u tanmaysharma'   		
+				bat 'docker login -p %pass_word% -u tanmaysharma97'   		
         	}
         }
 		stage('Docker push Image') {
@@ -73,7 +73,7 @@ pipeline {
         	
         	steps{
         		echo 'Docker run the image pulled from dockerhub'
-				bat 'docker run --rm -p 40001:40001 %repository_name%:%tag_name% '        		
+				bat 'docker run --rm -p 6789:6789 %repository_name%:%tag_name% '        		
         	}
         }
     }
