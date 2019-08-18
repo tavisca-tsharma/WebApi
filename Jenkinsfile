@@ -1,55 +1,81 @@
 pipeline {
     agent any
-	parameters {		
-			string(	name: 'GIT_SSH_PATH',
-					defaultValue: "https://github.com/tavisca-tsharma/WebApi.git",
-					description: '')
-
-			string(name: 'DOCKER_FILE',
-			       defaultValue: 'WebApplication10')
-		    string(name: 'DOCKER_CONTAINER_NAME',
-			       defaultValue: 'WebApplication10-container')
-		    
+	
+	parameters {
+        string(defaultValue: "TestAPI2.sln", description: 'name of solution file', name: 'solutionName')
+		string(defaultValue: "APITests/APITests.csproj", description: 'name of test file', name: 'testName')
+		string(defaultValue: "api_image", description: 'name of docker image', name: 'docker_image_name')
+		string(defaultValue: "tanmaysharma/tanmay_repo", description: 'repository_name', name: 'repository_name')
+		string(defaultValue: "pchinu1234", description: 'docker hub password', name: 'pass_word')
+		string(defaultValue: "tanmaysharma", description: 'docker hub username', name: 'user_name')
+		string(defaultValue: "api_tag", description: 'tag name', name: 'tag_name')
     }
 	
-    stages {
+    stages { 
         stage('Build') {
-            steps {
-				bat 'dotnet restore'
-                bat 'dotnet build -p:Configuration=release -v:n'
-				
-            }
+        	
+        	steps{
+        		echo 'Build step'
+        		bat 'dotnet build %solutionName% -p:Configuration=release -v:q'
+        	}
         }
-		
         stage('Test') {
-            steps {
-                bat 'dotnet test' 
-            }
+        	
+        	steps{
+        		echo 'Test step'
+        		bat 'dotnet test %testName%'
+        	}
         }
-		stage('Publish') {
-            steps {
-                bat 'dotnet publish -c Release -o publish' 
-            }
+        stage('Publish') {
+        	
+        	steps{
+        		echo 'Publish step'
+        		bat 'dotnet publish %solutionName% -c RELEASE -o Publish'
+        	}
         }
-		stage('Deploy'){
-			
-		     steps{
-			    bat '''
-				if(docker inspect -f {{.State.Running}} ${DOCKER_CONTAINER_NAME})
-				then
-					docker container rm -f ${DOCKER_CONTAINER_NAME}
-				fi
-			    '''
-			    bat 'docker build -t ${DOCKER_FILE} -f Dockerfile .'
-				bat 'docker run --name ${DOCKER_CONTAINER_NAME} -d -p 6789:6789/tcp ${DOCKER_FILE}:latest'
-				bat 'docker image rm -f ${DOCKER_FILE}:latest'
-			 }
-		}
 		
+		stage('Docker build Image') {
+        	
+        	steps{
+        		echo 'Docker image'
+        		bat 'docker build -t %docker_image_name% -f Dockerfile .'				
+        	}
+        }
+		
+		
+		stage('Docker hub Login') {
+        	
+        	steps{
+        		echo 'Docker login to dockerhub'
+				bat 'docker login -p %pass_word% -u tanmaysharma'   		
+        	}
+        }
+		stage('Docker push Image') {
+        	
+        	steps{
+        		echo 'Docker push image to dockerhub'
+				bat 'docker tag %docker_image_name% %repository_name%:%tag_name%'
+				bat 'docker push %repository_name%:%tag_name%' 
+				bat 'docker rmi %docker_image_name%:latest'
+				bat 'docker rmi %repository_name%:%tag_name%'
+        	}
+        }
+		
+		stage('Docker pull Image') {
+        	
+        	steps{
+        		echo 'Docker pull image from dockerhub'
+				bat 'docker pull %repository_name%:%tag_name%'        		
+        	}
+        }
+		
+		stage('Docker run image') {
+        	
+        	steps{
+        		echo 'Docker run the image pulled from dockerhub'
+				bat 'docker run --rm -p 40001:40001 %repository_name%:%tag_name% '        		
+        	}
+        }
     }
-	post{
-	  always{
-	      deleteDir()
-	  }
-	}
+
 }
