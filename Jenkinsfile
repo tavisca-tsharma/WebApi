@@ -41,7 +41,15 @@ pipeline {
         		bat 'docker build -t %docker_image_name% -f Dockerfile .'				
         	}
         }
-		
+		    stage('SonarQube stage') {
+        	
+        	steps{
+        		echo 'Docker run the image pulled from dockerhub'
+				bat 'dotnet C:/Users/tsharma/Documents/sonar-scanner/SonarScanner.MSBuild.dll begin /d:sonar.login=admin /d:sonar.password=admin /k:"f3c736460e86d1ce0e8748c22a06b38a800e89fe"'
+				bat 'dotnet build'
+				bat 'dotnet C:/Users/tsharma/Documents/sonar-scanner/SonarScanner.MSBuild.dll end /d:sonar.login=admin /d:sonar.password=admin'
+        	}
+        }
 		
 		stage('Docker hub Login') {
         	
