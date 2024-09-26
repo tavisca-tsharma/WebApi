@@ -45,7 +45,7 @@ pipeline {
         	
         	steps{
         		echo 'Docker run the image pulled from dockerhub'
-				bat 'dotnet C:/Users/tsharma/Documents/sonar-scanner/SonarScanner.MSBuild.dll begin /d:sonar.login=admin /d:sonar.password=admin /k:"f3c736460e86d1ce0e8748c22a06b38a800e89fe"'
+				bat 'dotnet C:/Users/tsharma/Documents/sonar-scanner/SonarScanner.MSBuild.dll begin /d:sonar.login=admin /d:sonar.password=admin /k:"a59b9c2d508caacb4b152c9bec3aed3b0ce0068e"'
 				bat 'dotnet build'
 				bat 'dotnet C:/Users/tsharma/Documents/sonar-scanner/SonarScanner.MSBuild.dll end /d:sonar.login=admin /d:sonar.password=admin'
         	}
@@ -87,3 +87,4 @@ pipeline {
     }
 
 }
+///
